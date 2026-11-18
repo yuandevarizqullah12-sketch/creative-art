@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Abstract illustration of a pale moon over layered violet and blue hills">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1130"/>
+      <stop offset="0.55" stop-color="#3a2a85"/>
+      <stop offset="1" stop-color="#6b57d6"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f6f3ff"/>
+      <stop offset="0.7" stop-color="#d2c9ff"/>
+      <stop offset="1" stop-color="#a99bf5"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8f74f5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#8f74f5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="r1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a5fd6"/>
+      <stop offset="1" stop-color="#3b3fa8"/>
+    </linearGradient>
+    <linearGradient id="r2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#34449f"/>
+      <stop offset="1" stop-color="#1f2a73"/>
+    </linearGradient>
+    <linearGradient id="r3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b2468"/>
+      <stop offset="1" stop-color="#0e1238"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#sky)"/>
+  <g fill="#e9e6ff">
+    <circle cx="90" cy="110" r="2.2" opacity="0.9"/>
+    <circle cx="210" cy="60" r="1.6" opacity="0.7"/>
+    <circle cx="330" cy="150" r="1.8" opacity="0.8"/>
+    <circle cx="640" cy="90" r="2" opacity="0.9"/>
+    <circle cx="720" cy="210" r="1.5" opacity="0.7"/>
+    <circle cx="150" cy="260" r="1.4" opacity="0.6"/>
+    <circle cx="560" cy="300" r="1.6" opacity="0.7"/>
+    <circle cx="450" cy="70" r="1.3" opacity="0.6"/>
+  </g>
+  <circle cx="470" cy="430" r="260" fill="url(#halo)"/>
+  <circle cx="470" cy="430" r="118" fill="url(#moon)"/>
+  <path d="M0 640 C120 590 220 560 340 600 S560 660 680 596 S780 566 800 576 V1000 H0 Z" fill="url(#r1)"/>
+  <path d="M0 722 C140 662 260 702 380 692 S620 642 800 702 V1000 H0 Z" fill="url(#r2)"/>
+  <path d="M0 722 C140 662 260 702 380 692 S620 642 800 702" fill="none" stroke="#62d3a4" stroke-opacity="0.5" stroke-width="2"/>
+  <path d="M0 810 C160 764 300 796 430 774 S690 742 800 786 V1000 H0 Z" fill="url(#r3)"/>
+  <g stroke="#62d3a4" stroke-opacity="0.28" stroke-width="2" stroke-linecap="round">
+    <path d="M300 880 H420"/>
+    <path d="M350 910 H500"/>
+    <path d="M250 940 H340"/>
+  </g>
+</svg>

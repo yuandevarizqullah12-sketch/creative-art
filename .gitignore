@@ -1,0 +1,13 @@
+# Secrets: never commit these
+.env*
+
+# Dependencies and tooling
+node_modules/
+.vercel/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

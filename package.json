@@ -1,0 +1,14 @@
+{
+  "name": "creative-art",
+  "version": "1.0.0",
+  "description": "Creative Art: turn text prompts into AI artwork with Cloudflare Workers AI, hosted on Vercel.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npx vercel dev",
+    "check": "node --check api/generate.js && node --check script.js && node --check config.js"
+  }
+}

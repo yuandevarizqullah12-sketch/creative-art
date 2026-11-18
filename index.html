@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Art: Turn imagination into art</title>
+  <meta name="description" content="Creative Art turns text prompts into original AI artwork. Pick a style and a shape, then download the result.">
+  <meta name="theme-color" content="#0c0f1d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Loaded without blocking first paint; script.js switches media to "all". -->
+  <link id="fontSheet" rel="stylesheet" media="print" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#create">Skip to the generator</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Creative Art, back to top">
+        <img src="assets/icons/favicon.svg" alt="" width="30" height="30">
+        <span>Creative Art</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+        <span class="sr-only">Menu</span>
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" id="siteNav" aria-label="Main">
+        <a href="#create">Create</a>
+        <a href="#explore">Explore</a>
+        <a href="#gallery">My Gallery</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <h1 id="heroTitle">Imagine it. Create it.</h1>
+        <p class="lead">Transform your ideas into original digital artwork with AI.</p>
+
+        <form class="hero-form" id="heroForm" novalidate>
+          <label class="sr-only" for="heroPrompt">Describe your artwork</label>
+          <input id="heroPrompt" name="heroPrompt" type="text" maxlength="1000" autocomplete="off" placeholder="Describe the artwork you want to see">
+          <button class="btn btn-primary" id="heroSubmit" type="submit">Create Artwork</button>
+        </form>
+
+        <div class="chips" id="heroChips" role="group" aria-label="Example prompts"></div>
+      </div>
+
+      <figure class="hero-art">
+        <img src="assets/images/hero-art.svg" width="800" height="1000" alt="Abstract illustration of a pale moon over layered violet and blue hills" fetchpriority="high">
+        <figcaption>Sample illustration. Your own artwork appears in the generator below.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section container" id="create" aria-labelledby="createTitle">
+      <div class="section-head">
+        <h2 id="createTitle">Create</h2>
+        <p>Describe a scene, pick a style, and choose a shape.</p>
+      </div>
+
+      <div class="create-grid">
+        <form class="controls" id="genForm" novalidate>
+          <div class="field">
+            <div class="field-row">
+              <label for="prompt">Prompt</label>
+              <button class="link-btn" id="clearPrompt" type="button">Clear prompt</button>
+            </div>
+            <textarea id="prompt" name="prompt" rows="5" maxlength="1000" required aria-describedby="counter promptError" placeholder="A lighthouse on a cliff guiding dragons home through a storm"></textarea>
+            <div class="field-row field-foot">
+              <p class="field-error" id="promptError" role="alert" hidden></p>
+              <p class="counter" id="counter" aria-live="off">0 / 1000</p>
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>Art style</legend>
+            <div class="choices" id="styleOptions"></div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Shape</legend>
+            <div class="choices" id="ratioOptions"></div>
+            <p class="hint">The model creates a fixed-size image. For landscape and portrait, your browser crops it from the center.</p>
+          </fieldset>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="generateBtn" type="submit">Generate</button>
+            <button class="btn btn-secondary" id="randomBtn" type="button">Random inspiration</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+          </div>
+        </form>
+
+        <div class="stage" id="stage">
+          <div class="frame" id="frame" data-state="empty" data-ratio="1:1" aria-busy="false">
+            <div class="panel panel-empty" data-panel="empty">
+              <p class="panel-title">Your artwork will appear here</p>
+              <p class="panel-text">Write a prompt and select Generate.</p>
+            </div>
+
+            <div class="panel panel-loading" data-panel="loading">
+              <span class="spinner" aria-hidden="true"></span>
+              <p class="panel-title">Creating your artwork</p>
+              <p class="panel-text" id="loadingText">Sending your prompt…</p>
+            </div>
+
+            <div class="panel panel-error" data-panel="error">
+              <p class="panel-title" id="errorTitle">Something went wrong</p>
+              <p class="panel-text" id="errorMessage"></p>
+              <button class="btn btn-secondary" id="retryBtn" type="button">Try again</button>
+            </div>
+
+            <img class="result-img" id="resultImg" data-panel="result" alt="" decoding="async">
+          </div>
+
+          <div class="result-bar" id="resultBar" hidden>
+            <p class="result-prompt" id="resultPrompt"></p>
+            <p class="result-meta" id="resultMeta"></p>
+            <div class="actions">
+              <button class="btn btn-primary" id="downloadBtn" type="button">Download</button>
+              <button class="btn btn-secondary" id="saveBtn" type="button">Save to gallery</button>
+              <button class="btn btn-ghost" id="againBtn" type="button">Generate again</button>
+            </div>
+          </div>
+
+          <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="explore" aria-labelledby="exploreTitle">
+      <div class="section-head">
+        <h2 id="exploreTitle">Explore</h2>
+        <p>Prompt ideas to start from. Choose one and it loads into the generator.</p>
+      </div>
+      <div class="chips" id="exploreFilters" role="group" aria-label="Filter ideas by style"></div>
+      <ul class="ideas" id="exploreList"></ul>
+    </section>
+
+    <section class="section container" id="gallery" aria-labelledby="galleryTitle">
+      <div class="section-head">
+        <h2 id="galleryTitle">My Gallery</h2>
+        <p id="galleryCount">No saved artwork yet.</p>
+      </div>
+      <p class="notice" id="galleryNotice" role="alert" hidden>Saving is unavailable because this browser is blocking local storage (IndexedDB). Private browsing modes sometimes do this.</p>
+      <div class="gallery-empty" id="galleryEmpty">
+        <p class="panel-title">Nothing saved yet</p>
+        <p class="panel-text">After you generate artwork, choose Save to gallery to keep it in this browser.</p>
+      </div>
+      <ul class="gallery-grid" id="galleryGrid"></ul>
+    </section>
+  </main>
+
+  <dialog class="viewer" id="viewer" aria-label="Artwork preview">
+    <img id="viewerImg" alt="">
+    <div class="viewer-info">
+      <p class="result-prompt" id="viewerPrompt"></p>
+      <p class="result-meta" id="viewerMeta"></p>
+      <div class="actions">
+        <button class="btn btn-primary" id="viewerDownload" type="button">Download</button>
+        <button class="btn btn-secondary" id="viewerDelete" type="button">Delete</button>
+        <button class="btn btn-ghost" id="viewerClose" type="button">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">Creative Art</p>
+        <p>Turn imagination into art. A small studio for turning written ideas into images.</p>
+      </div>
+      <div>
+        <p>Built with HTML, CSS and vanilla JavaScript. Images are made with FLUX.1 [schnell] from Black Forest Labs, running on Cloudflare Workers AI, and the site is hosted on Vercel.</p>
+        <p>Privacy: your prompt is sent to our server and on to Cloudflare to create the image. Creative Art does not keep your prompts or images on its server. Saved artwork stays in this browser.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
